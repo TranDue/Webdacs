@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'webcss/login.css'%}">
+
+    <style>
+
+    </style>
+</head>
+<body>
+<center>
+    <div class = "login">
+        <form method="POST">
+        {% csrf_token %}
+            <h2> Đăng nhập tài khoản</h2>
+        <p><label> Tài Khoản </label>{{form.username}}</p>
+        <p><label> Mật Khẩu </label>{{form.password}}</p>
+        <input type="hidden" name='text' value ="/"/>
+        <input type="submit" value="Đăng nhập"/>
+        </form>       
+        <form>
+        <a href="/register"> Tạo tài khoản mới </a>
+        </form>
+    </div>
+    </center>    
+</body>
+</html>
