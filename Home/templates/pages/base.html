@@ -5,33 +5,95 @@
    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     {% load static %}
-   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type='text/css'>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type='text/css'>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css.map' %}" type='text/css'>
+    <link rel="stylesheet" href="{% static 'css/bootstrap-reboot.min.css' %}" type='text/css'>
     <title>{% block title %}{% endblock  %}</title> 
     <link rel="stylesheet" type="text/css" href="{% static 'webcss/Giaodien.css'%}">
     <link rel="stylesheet" type="text/css" href="{% static 'webcss/Thanhcc.css'%}">
+    <link rel="stylesheet" type='text/css' href="{% static 'css/style.css' %}" >
+    <link rel="shortcut icon" type="image/icon" href= "static/image/favicon.ico">
 </head>
 <body>
+<div class="below_body">
+
+    <div id="clock">Loading...</div>
+
+<script type="text/javascript"> function refrClock() {
+
+var d=new Date();
+
+var s=d.getSeconds();
+
+var m=d.getMinutes();
+
+var h=d.getHours();
+
+var day=d.getDay();
+
+var date=d.getDate();
+
+var month=d.getMonth();
+
+var year=d.getFullYear();
+
+var days=new Array("Chủ nhật","Thứ hai","Thứ 3","Thứ 4","Thứ 5","Thứ 6","Thứ 7");
+
+var months=new Array("1","2","3","4","5","6","7","8","9","10","11","12"); var am_pm;
+
+if (s<10) {s="0" + s}
+
+if (m<10) {m="0" + m}
+
+if (h>12)
+
+{h-=12;AM_PM = "PM"}
+
+else {AM_PM="AM"}
+
+if (h<10) {h="0" + h}
+
+document.getElementById("clock").innerHTML=days[day] + " Ngày " + date + "/" +months[month] + "/" + year + " Hiện tại là "+ " [" + h + ":" + m + ":" + s + "] " + AM_PM; setTimeout("refrClock()",1000); } refrClock(); 
+</script>
+</div>
+<div class="topct">
+        <div class="xulydangnhap">
+        {% if user.username %}
+            <li>Hello {{user.username}}</li>
+            <br>
+            <li>    <a href = "{% url 'logout' %}"> Đăng xuất </a>
+            </li>
+        {% else %}
+            <li>    <a href="{%  url 'register' %}">Đăng ký | </a> 
+                    <a href="{%  url 'login' %}">Đăng nhập</a>
+            </li>
+        {% endif %}   
+        </div>
+</div>
 <div>
-<div class="topnav">
-    <a href ="#NamePage">TheGioiManga</a>
-    <div class="search-container">
-        <form >
-            <input type="text" placeholder="Tìm truyện..." name="search">
-            <button class = " btn btn-outline-succsess my-4 my-sm-0"type="submit"></i></button>
-        </form>
+    <div class="topnav">
+         <a href ="#NamePage">TheGioiManga</a>
+        <div class="search-container">
+            <form >
+            <input type="text" placeholder="Tìm truyện ở đây" name="search">
+            <button class = "btnoutline"type="submit"></i> Tìm Kiếm</button>
+             </form>
+        </div>
     </div>
 </div>
-    <div class="xulydangnhap">
-    {% if user.username %}
-        <li>Xin chào {{user.username}}</li>
-        <li><a href = "{% url 'logout' %}"> Đăng xuất </a></li>
-        {% else %}
-            <li><a href="{%  url 'register' %}">Đăng ký | </a> <a href="{%  url 'login' %}">Đăng nhập</a></li>
-        {% endif %}   
-</div>
-</div> 
-
+<script>
+                $(document).ready(function()
+                {
+                $("#btnoutline").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $("main between ul li h2").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+                });
+                });
+</script>
 <nav class="main-nav hidden-xs">
     <div class="inner>">
         <div class="container">
@@ -51,19 +113,10 @@
                             <a target="_self" href="the-loai">THỂ LOẠI</a> 
                         <li>
                         <li>
-                            <a target="_self" href="lich-su">LỊCH SỬ</a> 
-                        <li>
-                        <li>
                             <a target="_self" href="xep-hang">XẾP HẠNG</a> 
                         <li>
                         <li>
-                            <a target="_self" href="tim-truyen">TÌM TRUYỆN</a> 
-                        <li>
-                        <li>
                             <a target="_self" href="nhom">GROUP</a> 
-                        <li>
-                        <li>
-                            <a target="_self" href="gop-y">GÓP Ý</a> 
                         <li>
                     </ul>
                 </div>            
@@ -72,8 +125,61 @@
     </div>
 </nav>
 <div style ="display: block;width:796.6px;height:41px;float:none;"></div>
-    {% block content %}
+    {% comment %} {% block content %}
         
-    {% endblock  %}
+    {% endblock  %} {% endcomment %}
+<br>
+<div class="main">
+    <div class="left"> 
+        <div class="menu_left">
+            <ul>
+            <br>
+                <li>
+                <a target="_self" href="gopy">GÓP Ý</a>
+                </li>
+                <li>
+                <a target="_self" href="lichsu">LỊCH SỬ</a>
+                </li>
+                <li>
+                <a target="_self" href="contact">CONTACT</a>
+                </li>
+            </ul> 
+        </div>
+    </div>
+    <div class="between">
+        <ul>
+            <li>
+                <a href="https://truyenfull.vn/truyen-dau-pha-thuong-khung/"><img src="static/image/daupha.jpg"></a>
+                <h3> <a href="https://truyenfull.vn/truyen-dau-pha-thuong-khung/">ĐẤU PHÁ THƯƠNG KHUNG</a></h3>
+                        <p>Mọi người hẵn đã đọc qua bộ truyện Đấu Phá Thương Khung vậy thì không thể bỏ Đấu Phá Thương Khung Hậu Truyện của tác giả Lão Đàn Toan Thái nhé. Phần sau này rất hay không kém phần thú vị so với truyện đấu phá thương khung.........</p>
+            </li>
+            <li>
+                <img src="static/image/tuchan.jpg">
+                <h3><a href="https://truyenfull.vn/tu-chan-gia-tai-di-the/">TU CHÂN GIẢ TẠI DỊ THẾ.</a></h3>
+                        <p>Nhân vật chính là Nhạc Thành, một phế vật không tu luyện được đấu khí và ma pháp nên đã bị hôn thê của mình là Dịch Thiến từ hôn, thất vọng vì cuộc sống, Nhạc Thành đã chọn cách tự kết liễu cuộc sống của mình. Đúng lúc mọi người tưởng rằng Nhạc Thành đã chết thì siêu cấp tán ma Lục Phong vì độ kiếp năm lần thành công, đến lần cuối thì thất bại, thân thể tan nát đã nhập hồn vào Nhạc Thành, nắm giữ cả thể xác và suy nghĩ của hắn.</p>
+            </li>
+            <li>
+                <img src="static/image/choctucvoyeu.jpg">
+                <h3>CHỌC TỨC VỢ YÊU - MUA MỘT TẶNG MỘT </h3>
+                        <p>Đã 27 tuổi nhưng đại thiếu gia Lục thị lại chẳng hề rung động vì bất kỳ một cô gái nào nên cha mẹ cùng em trai đã chuốc say anh rồi đưa lên giường một cô gái xa lạ.
+                        5 năm sau, tiểu thiếu gia Lục Kình Vũ vì không có mẹ và cú shock quá khứ nên đã rơi vào trầm cảm.
+                        Một người cha "chưa từng có cảm giác rung động trước bất kỳ ai" và một thằng bé con "không thích tiếp xúc với bất kỳ ai" đã trở nên "lầy lội" hơn bao giờ hết khi gặp được Ninh Tịch. Cả hai cha con đều vừa gặp đã yêu người phụ nữ này, một người mong muốn chiếm hữu, một người vô cùng ỷ lại, cuối cùng tạo ra những tình huống dở khóc dở cười cho độc giả..</p>
+            </li>
+            <li>
+                <img src="static/image/vu-dau-tinh-khong.jpg">
+                <h3>VŨ ĐẤU TINH KHÔNG</h3>
+                        <p>Trong một lần tình cờ thì Dịch Phong đã gặp một người thần bí tên Lục, nhờ người này chỉ dẫn hắnđến một nơi mới mà chính ở nơi này đã được hắn vốn luôn ao ước để thỏa trí làm đại hiệp của hắn, nhưng biến cố bất ngờ xảy ra khiến hắn bước chân đến một thế giới mới đầy xa lạ và đặc sắc đang chờ đón hắn, mời mọi người cùng dõi theo bước chân của hắn nhé</p>
+            </li>
+            <li>
+                <img src="static/image/vu-dong-can-khon.jpg">
+                <h3>VŨ ĐỘNG CÀN KHÔN</h3>
+                        <p>Vũ Động Càn Khôn - Từ xưa đến nay, con người luôn có khát vọng vươn lên đỉnh cao, để đổi lấy sự thành công họ đã hy sinh biết bao nhiêu mồ hôi và nước mắt. Tu Luyện chính là trộm đi âm dương, đoạt lấy tạo hóa, chuyển đổi Niết Bàn, nắm giữ sinh tử, chưởng quản Luân Hồi.</p>
+            </li>
+        </ul>
+    </div>
+    <div class="right"> Right </div>
+</div>
+<div class="footer">Thế giới Manga : đem lại nhiều cảm xúc cho độc giả khi đọc truyện
+</div>
 </body>
 </html>
